@@ -53,6 +53,12 @@ public class RequestPayload {
         private String species;
         private String breed;
         private String age;
+        private String size;
+        private String sex;
+        private String weight;
+        private List<String> vaccines;
+        private List<String> behaviors;
+        private String notes;
 
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
@@ -65,5 +71,23 @@ public class RequestPayload {
 
         public String getAge() { return age; }
         public void setAge(String age) { this.age = age; }
+
+        public String getSize() { return size; }
+        public void setSize(String size) { this.size = size; }
+
+        public String getSex() { return sex; }
+        public void setSex(String sex) { this.sex = sex; }
+
+        public String getWeight() { return weight; }
+        public void setWeight(String weight) { this.weight = weight; }
+
+        public List<String> getVaccines() { return vaccines; }
+        public void setVaccines(List<String> vaccines) { this.vaccines = vaccines; }
+
+        public List<String> getBehaviors() { return behaviors; }
+        public void setBehaviors(List<String> behaviors) { this.behaviors = behaviors; }
+
+        public String getNotes() { return notes; }
+        public void setNotes(String notes) { this.notes = notes; }
     }
 }
