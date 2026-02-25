@@ -1,1 +1,130 @@
-2026-02-09T14:16:13.378-08:00  WARN 12284 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=19h4m25s834ms127µs200ns).
+2026-02-24T10:52:59.136-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=18h4m36s948ms837µs).
+2026-02-24T11:01:26.651-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=4m26s211ms349µs300ns).
+2026-02-24T12:26:25.416-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=29m27s472ms996µs100ns).
+2026-02-24T13:16:32.259-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=45m36s784ms585µs400ns).
+2026-02-24T13:39:29.535-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m27s46ms555µs800ns).
+2026-02-24T14:44:38.928-08:00  WARN 17888 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=48m9s78ms645µs400ns).
+2026-02-24T14:51:08.210-08:00  WARN 17888 --- [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:51:08.353-08:00  WARN 17888 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:51:08.383-08:00  WARN 17888 --- [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:52:07.284-08:00  WARN 17888 --- [http-nio-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:52:07.305-08:00  WARN 17888 --- [http-nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:52:07.326-08:00  WARN 17888 --- [http-nio-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:52:10.256-08:00  WARN 17888 --- [http-nio-8080-exec-8] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:52:10.276-08:00  WARN 17888 --- [http-nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:55:13.944-08:00  INFO 20280 --- [main] c.e.sunnyside.SunnysideApplication       : Starting SunnysideApplication using Java 25.0.1 with PID 20280 (C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend\target\classes started by tonyf in C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend)
+2026-02-24T14:55:13.951-08:00  INFO 20280 --- [main] c.e.sunnyside.SunnysideApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T14:55:15.622-08:00  INFO 20280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T14:55:15.685-08:00  INFO 20280 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 0 JPA repository interfaces.
+2026-02-24T14:55:17.106-08:00  INFO 20280 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-02-24T14:55:17.128-08:00  INFO 20280 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T14:55:17.130-08:00  INFO 20280 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-02-24T14:55:17.397-08:00  INFO 20280 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-24T14:55:17.398-08:00  INFO 20280 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3276 ms
+2026-02-24T14:55:17.689-08:00  INFO 20280 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-24T14:55:17.820-08:00  INFO 20280 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-02-24T14:55:17.825-08:00  INFO 20280 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2026-02-24T14:55:18.426-08:00  INFO 20280 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T14:55:18.490-08:00  INFO 20280 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T14:55:18.876-08:00  INFO 20280 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-24T14:55:18.879-08:00  INFO 20280 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T14:55:19.525-08:00  INFO 20280 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T14:55:19.534-08:00  INFO 20280 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T14:55:19.571-08:00  WARN 20280 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T14:55:20.180-08:00  WARN 20280 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-02-24T14:55:20.186-08:00  INFO 20280 --- [main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T14:55:20.194-08:00  INFO 20280 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-24T14:55:20.204-08:00  INFO 20280 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-24T14:55:20.207-08:00  INFO 20280 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-24T14:55:20.232-08:00  INFO 20280 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-24T14:55:20.278-08:00 ERROR 20280 --- [main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-02-24T14:55:52.696-08:00  WARN 17888 --- [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /users
+2026-02-24T14:55:56.597-08:00  WARN 17888 --- [http-nio-8080-exec-3] o.s.web.servlet.PageNotFound             : No mapping for GET /
+2026-02-24T14:56:00.274-08:00  WARN 17888 --- [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:00.309-08:00  WARN 17888 --- [http-nio-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:57.192-08:00  WARN 17888 --- [http-nio-8080-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:57.212-08:00  WARN 17888 --- [http-nio-8080-exec-10] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:57.232-08:00  WARN 17888 --- [http-nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:59.127-08:00  WARN 17888 --- [http-nio-8080-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:59.134-08:00  WARN 17888 --- [http-nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:56:59.151-08:00  WARN 17888 --- [http-nio-8080-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:57:01.645-08:00  WARN 17888 --- [http-nio-8080-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:57:01.652-08:00  WARN 17888 --- [http-nio-8080-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:57:01.692-08:00  WARN 17888 --- [http-nio-8080-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' is not supported]
+2026-02-24T14:58:29.529-08:00  INFO 24008 --- [main] c.e.sunnyside.SunnysideApplication       : Starting SunnysideApplication using Java 25.0.1 with PID 24008 (C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend\target\classes started by tonyf in C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend)
+2026-02-24T14:58:29.542-08:00  INFO 24008 --- [main] c.e.sunnyside.SunnysideApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T14:58:30.781-08:00  INFO 24008 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T14:58:30.825-08:00  INFO 24008 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32 ms. Found 0 JPA repository interfaces.
+2026-02-24T14:58:31.996-08:00  INFO 24008 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-02-24T14:58:32.019-08:00  INFO 24008 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T14:58:32.022-08:00  INFO 24008 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-02-24T14:58:32.288-08:00  INFO 24008 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-24T14:58:32.289-08:00  INFO 24008 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2633 ms
+2026-02-24T14:58:32.626-08:00  INFO 24008 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-24T14:58:32.723-08:00  INFO 24008 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-02-24T14:58:32.727-08:00  INFO 24008 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2026-02-24T14:58:33.301-08:00  INFO 24008 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T14:58:33.379-08:00  INFO 24008 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T14:58:33.720-08:00  INFO 24008 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-24T14:58:33.724-08:00  INFO 24008 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T14:58:34.355-08:00  INFO 24008 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T14:58:34.369-08:00  INFO 24008 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T14:58:34.412-08:00  WARN 24008 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T14:58:35.122-08:00  INFO 24008 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-24T14:58:35.141-08:00  INFO 24008 --- [main] c.e.sunnyside.SunnysideApplication       : Started SunnysideApplication in 6.513 seconds (process running for 7.34)
+2026-02-24T14:58:56.462-08:00  INFO 24008 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T14:58:56.470-08:00  INFO 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T14:58:56.499-08:00  INFO 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 25 ms
+2026-02-24T14:58:56.582-08:00  WARN 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : No mapping for GET /
+2026-02-24T14:59:00.416-08:00  WARN 24008 --- [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /health
+2026-02-24T15:58:51.842-08:00  WARN 24008 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=54m17s940ms270µs400ns).
+2026-02-24T16:32:41.835-08:00  WARN 24008 --- [http-nio-8080-exec-8] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/1
+2026-02-24T16:32:44.477-08:00  WARN 24008 --- [http-nio-8080-exec-7] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/1
+2026-02-24T16:32:47.813-08:00  WARN 24008 --- [http-nio-8080-exec-9] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/1
+2026-02-24T16:32:53.439-08:00  WARN 24008 --- [http-nio-8080-exec-10] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/2
+2026-02-24T16:33:10.459-08:00  WARN 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/2
+2026-02-24T16:33:15.521-08:00  WARN 24008 --- [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/2
+2026-02-24T16:33:15.996-08:00  WARN 24008 --- [http-nio-8080-exec-3] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/2
+2026-02-24T16:33:55.841-08:00  WARN 24008 --- [http-nio-8080-exec-4] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/1
+2026-02-24T16:35:31.125-08:00  WARN 24008 --- [http-nio-8080-exec-1] o.s.web.servlet.PageNotFound             : No mapping for OPTIONS /api/requests/1
+2026-02-24T16:36:48.533-08:00  INFO 24580 --- [main] c.e.sunnyside.SunnysideApplication       : Starting SunnysideApplication using Java 25.0.1 with PID 24580 (C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend\target\classes started by tonyf in C:\Users\tonyf\Documents\test\sunnyside-pet-care\backend)
+2026-02-24T16:36:48.541-08:00  INFO 24580 --- [main] c.e.sunnyside.SunnysideApplication       : No active profile set, falling back to 1 default profile: "default"
+2026-02-24T16:36:49.966-08:00  INFO 24580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-24T16:36:50.010-08:00  INFO 24580 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 0 JPA repository interfaces.
+2026-02-24T16:36:51.026-08:00  INFO 24580 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2026-02-24T16:36:51.043-08:00  INFO 24580 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-24T16:36:51.045-08:00  INFO 24580 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.16]
+2026-02-24T16:36:51.264-08:00  INFO 24580 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-24T16:36:51.266-08:00  INFO 24580 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2595 ms
+2026-02-24T16:36:51.555-08:00  INFO 24580 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-24T16:36:51.682-08:00  INFO 24580 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.13.Final
+2026-02-24T16:36:51.687-08:00  INFO 24580 --- [main] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2026-02-24T16:36:52.273-08:00  INFO 24580 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-24T16:36:52.342-08:00  INFO 24580 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-24T16:36:52.693-08:00  INFO 24580 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-24T16:36:52.698-08:00  INFO 24580 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-24T16:36:53.499-08:00  INFO 24580 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-24T16:36:53.510-08:00  INFO 24580 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-24T16:36:53.557-08:00  WARN 24580 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-24T16:36:54.195-08:00  INFO 24580 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2026-02-24T16:36:54.209-08:00  INFO 24580 --- [main] c.e.sunnyside.SunnysideApplication       : Started SunnysideApplication in 6.554 seconds (process running for 7.522)
+2026-02-24T16:37:08.283-08:00  INFO 24580 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-24T16:37:08.285-08:00  INFO 24580 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-24T16:37:08.289-08:00  INFO 24580 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-02-24T18:41:51.762-08:00  WARN 24580 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h42m28s714ms851µs900ns).
+2026-02-24T19:27:16.759-08:00  WARN 24580 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m54s194ms97µs400ns).

@@ -1,0 +1,14 @@
+node_modules/
+build/
+
+# Spring Boot
+target/
+.mvn/
+*.log
+
+# Environment
+.env
+application.properties
+
+# OS
+.DS_Store

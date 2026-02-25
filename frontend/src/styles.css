@@ -52,8 +52,10 @@ fieldset{border:1px solid #eee;padding:12px;border-radius:8px;background:#f7fffa
 legend{font-weight:700}
 
 .btn{display:inline-block;padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.btn-submit{padding:14px 22px;font-size:1.05rem;border-radius:12px}
 .btn-primary{background:var(--accent);color:#fff}
 .btn-ghost{background:transparent;border:1px solid #e6e6e6;color:var(--muted)}
+ .btn-danger{background:#c62828;color:#fff;border:1px solid #b71c1c}
 
 /* Large button variant for prominent actions (home page) */
 .btn-lg{padding:36px 44px;font-size:1.6rem;min-width:320px;min-height:84px;border-radius:18px;display:inline-flex;align-items:center;justify-content:center;line-height:1}
@@ -79,17 +81,14 @@ legend{font-weight:700}
 	.home-animal{width:90vw;height:auto}
 }
 
-.pets-table{width:100%;border-collapse:collapse;margin-top:12px}
-.pets-table th,.pets-table td{padding:8px;border-bottom:1px solid #f1f1f1;text-align:left}
+.pets-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:0.82rem;border:1px solid #ddd}
+.pets-table th,.pets-table td{padding:4px 6px;border:1px solid #ddd;text-align:center}
+.pet-list h4{margin-bottom:6px;font-size:0.95rem}
 
-/* Pet form + list side-by-side */
-.pet-grid{display:flex;gap:18px;align-items:flex-start}
-.pet-grid .pet-form{flex:1}
-.pet-grid .pet-list{width:360px}
-@media (max-width:900px){
-	.pet-grid{flex-direction:column}
-	.pet-grid .pet-list{width:100%}
-}
+/* Pet list above pet form */
+.pet-grid{display:flex;gap:18px;align-items:flex-start;flex-direction:column}
+.pet-grid .pet-form{width:100%}
+.pet-grid .pet-list{width:100%}
 
 .notice{color:#856404;background:#fff3cd;padding:8px;border-radius:6px;border:1px solid #ffeeba}
 .error{color:#721c24;background:#f8d7da;padding:8px;border-radius:6px;border:1px solid #f5c6cb}

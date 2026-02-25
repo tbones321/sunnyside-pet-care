@@ -287,10 +287,10 @@ export default function RequestForm({ serviceName = 'Service', onSubmit }) {
           </div>
         </fieldset>
 
-        <div style={{ marginTop: 12 }}>
-          <button type="submit" disabled={pets.length === 0}>Submit Request</button>
+        <div style={{ marginTop: 12, display: 'flex', gap: 12, alignItems: 'center' }}>
+          <button className="btn btn-primary btn-submit" type="submit" disabled={pets.length === 0}>Submit Request</button>
           {pets.length === 0 && (
-            <div style={{ color: '#856404', marginTop: 8 }}>Add at least one pet before submitting.</div>
+            <div style={{ color: '#856404' }}>Add at least one pet before submitting.</div>
           )}
         </div>
       </form>

@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import WalkRequest from './pages/WalkRequest'
 import SittingRequest from './pages/SittingRequest'
+import AdminDashboard from './pages/AdminDashboard'
 import PhotoMarquee from './components/PhotoMarquee'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
             <Link to="/">Home</Link>
             <Link to="/request-walk">Request a Walk</Link>
             <Link to="/request-sitting">Request Sitting</Link>
+            <Link to="/admin">Admin Dashboard</Link>
             <Link to="/about">About</Link>
           </nav>
         </header>
@@ -28,6 +30,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/request-walk" element={<WalkRequest />} />
             <Route path="/request-sitting" element={<SittingRequest />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </main>
       </div>

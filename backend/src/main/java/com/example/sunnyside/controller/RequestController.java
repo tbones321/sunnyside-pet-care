@@ -1,10 +1,14 @@
 package com.example.sunnyside.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import java.time.Instant;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicLong;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,51 +20,43 @@ import com.example.sunnyside.model.RequestPayload;
 @RequestMapping("/api/requests")
 public class RequestController {
 
-    @Autowired
-    private JavaMailSender mailSender;
-
-    @Value("${spring.mail.username:}")
-    private String mailFrom;
-
-    private static final String DEST = "tony_filippo@yahoo.com";
+    private final List<RequestRecord> requests = new CopyOnWriteArrayList<>();
+    private final AtomicLong counter = new AtomicLong(1);
 
     @PostMapping
-    public ResponseEntity<?> receiveRequest(@RequestBody RequestPayload payload) {
-        // Build a plain-text summary of the request
-        StringBuilder sb = new StringBuilder();
-        sb.append("Service: ").append(payload.getService()).append("\n\n");
-        sb.append("Owner: ").append(payload.getOwnerName()).append("\n");
-        sb.append("Email: ").append(payload.getEmail()).append("\n");
-        sb.append("Phone: ").append(payload.getPhone()).append("\n");
-        sb.append("Address: ").append(payload.getAddress()).append("\n\n");
+    public ResponseEntity<RequestRecord> receiveRequest(@RequestBody RequestPayload payload) {
+        RequestRecord record = new RequestRecord(counter.getAndIncrement(), Instant.now().toString(), payload);
+        requests.add(record);
+        return ResponseEntity.ok(record);
+    }
 
-        if (payload.getWalkTime() != null) {
-            sb.append("Walk time: ").append(payload.getWalkTime()).append("\n");
-            sb.append("Duration: ").append(payload.getDuration()).append(" minutes\n\n");
+    @GetMapping
+    public List<RequestRecord> getRequests() {
+        return requests;
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteRequest(@PathVariable long id) {
+        boolean removed = requests.removeIf(r -> r.getId() == id);
+        if (removed) {
+            return ResponseEntity.ok().body("Request deleted");
         }
-        if (payload.getFromDate() != null || payload.getToDate() != null) {
-            sb.append("Sitting from: ").append(payload.getFromDate()).append(" to: ").append(payload.getToDate()).append("\n\n");
+        return ResponseEntity.notFound().build();
+    }
+
+    public static class RequestRecord {
+        private final long id;
+        private final String receivedAt;
+        private final RequestPayload payload;
+
+        public RequestRecord(long id, String receivedAt, RequestPayload payload) {
+            this.id = id;
+            this.receivedAt = receivedAt;
+            this.payload = payload;
         }
 
-        if (payload.getPets() != null && !payload.getPets().isEmpty()) {
-            sb.append("Pets:\n");
-            payload.getPets().forEach(p -> sb.append(" - ").append(p.getName()).append(" (").append(p.getSpecies()).append(") age: ").append(p.getAge()).append("\n"));
-            sb.append("\n");
-        }
-
-        // Send email
-        try {
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(DEST);
-            if (mailFrom != null && !mailFrom.isEmpty()) {
-                msg.setFrom(mailFrom);
-            }
-            msg.setSubject("New Sunnyside request: " + payload.getService());
-            msg.setText(sb.toString());
-            mailSender.send(msg);
-            return ResponseEntity.ok().body("sent");
-        } catch (Exception ex) {
-            return ResponseEntity.status(500).body("failed to send: " + ex.getMessage());
-        }
+        public long getId() { return id; }
+        public String getReceivedAt() { return receivedAt; }
+        public RequestPayload getPayload() { return payload; }
     }
 }

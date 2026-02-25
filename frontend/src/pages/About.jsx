@@ -21,7 +21,6 @@ export default function About() {
         <li><strong>Routing &amp; UI:</strong> react-router-dom, responsive layouts, CSS variables</li>
         <li><strong>Backend:</strong> Spring Boot (REST controllers, embedded Tomcat)</li>
         <li><strong>Build &amp; Package:</strong> Maven (backend), npm (frontend)</li>
-        <li><strong>Email / Integration:</strong> Spring Mail, JavaMail (SMTP, Gmail)</li>
         <li><strong>APIs &amp; Data:</strong> RESTful JSON endpoints</li>
         <li><strong>State &amp; Forms:</strong> React form handling, client-side validation</li>
         <li><strong>Styling &amp; Assets:</strong> Custom CSS, animations, Vite asset imports</li>
@@ -38,7 +37,6 @@ export default function About() {
         <li>Designed and developed a full-stack web application for a pet care business offering dog walking and pet sitting services</li>
         <li>Built dynamic React forms to collect client and pet information, service type, dates, and time windows with client-side validation</li>
         <li>Implemented RESTful APIs using Spring Boot to process service requests and handle backend business logic</li>
-        <li>Integrated email notifications using Spring Mail / JavaMail (SMTP, Gmail) to send real-time service request emails upon form submission</li>
         <li>Structured the application for maintainability using modular components, REST controllers, and environment-based configuration</li>
         <li>Packaged the backend as an executable Spring Boot JAR with logging and properties configuration for deployment</li>
       </ul>
