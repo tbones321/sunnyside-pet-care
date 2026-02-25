@@ -7,11 +7,23 @@ export default function WalkRequest() {
   const [minute, setMinute] = useState('00')
   const [ampm, setAmpm] = useState('AM')
   const [duration, setDuration] = useState('30')
+  const [petCount, setPetCount] = useState(0)
 
   const hours = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))
   const minutes = ['00', '15', '30', '45']
 
   const today = new Date().toISOString().slice(0, 10)
+
+  // Calculate total price
+  const basePrices = {
+    '20': 16,
+    '30': 23,
+    '45': 29,
+    '60': 33
+  }
+  const basePrice = basePrices[duration] || 0
+  const additionalPets = Math.max(0, petCount - 1)
+  const totalPrice = basePrice + (additionalPets * 10)
 
   function handleSubmit(payload) {
     if (!date || !hour) {
@@ -87,12 +99,31 @@ export default function WalkRequest() {
           <select value={duration} onChange={e => setDuration(e.target.value)}>
             <option value="20">20 minutes</option>
             <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
             <option value="60">60 minutes</option>
           </select>
         </label>
       </div>
 
-      <RequestForm serviceName="Walk" onSubmit={handleSubmit} />
+      <RequestForm 
+        serviceName="Walk" 
+        onSubmit={handleSubmit} 
+        onPetsChange={setPetCount}
+        priceBreakdown={petCount > 0 ? (
+          <div style={{ marginTop: 12, padding: 12, background: '#f0f9ff', border: '1px solid #bae6fd', borderRadius: 4 }}>
+            <div style={{ fontSize: 16, fontWeight: 600 }}>Price Breakdown</div>
+            <div style={{ marginTop: 8 }}>
+              <div>{duration} minute walk: ${basePrice}</div>
+              {additionalPets > 0 && (
+                <div>Additional pets ({additionalPets} × $10): ${additionalPets * 10}</div>
+              )}
+              <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid #bae6fd', fontSize: 18, fontWeight: 600 }}>
+                Total Price: ${totalPrice}
+              </div>
+            </div>
+          </div>
+        ) : null}
+      />
     </section>
   )
 }

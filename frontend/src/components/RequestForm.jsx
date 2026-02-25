@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function RequestForm({ serviceName = 'Service', onSubmit }) {
+export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsChange, priceBreakdown }) {
   const [form, setForm] = useState({ ownerName: '', address: '', email: '', phone: '' })
   const [petForm, setPetForm] = useState({ name: '', species: '', breed: '', age: '', size: 'Medium', sex: 'Unknown', weight: '', vaccines: [], behaviors: [], behaviorOther: '', notes: '' })
   const [pets, setPets] = useState([])
@@ -73,13 +73,21 @@ export default function RequestForm({ serviceName = 'Service', onSubmit }) {
     const age = petForm.age && petForm.age.toString().trim() ? petForm.age.toString().trim() : '0'
     const behaviors = petForm.behaviors ? [...petForm.behaviors] : []
     if (petForm.behaviorOther && petForm.behaviorOther.toString().trim()) behaviors.push(petForm.behaviorOther.toString().trim())
-    setPets(prev => [...prev, { ...petForm, species, breed, age, behaviors }])
+    setPets(prev => {
+      const updated = [...prev, { ...petForm, species, breed, age, behaviors }]
+      onPetsChange && onPetsChange(updated.length)
+      return updated
+    })
     setPetForm({ name: '', species: '', breed: '', age: '', size: 'Medium', sex: 'Unknown', weight: '', vaccines: [], behaviors: [], behaviorOther: '', notes: '' })
     setError(null)
   }
 
   function removePet(index) {
-    setPets(prev => prev.filter((_, i) => i !== index))
+    setPets(prev => {
+      const updated = prev.filter((_, i) => i !== index)
+      onPetsChange && onPetsChange(updated.length)
+      return updated
+    })
   }
 
   function handleSubmit(e) {
@@ -286,6 +294,8 @@ export default function RequestForm({ serviceName = 'Service', onSubmit }) {
             </div>
           </div>
         </fieldset>
+
+        {priceBreakdown}
 
         <div style={{ marginTop: 12, display: 'flex', gap: 12, alignItems: 'center' }}>
           <button className="btn btn-primary btn-submit" type="submit" disabled={pets.length === 0}>Submit Request</button>
