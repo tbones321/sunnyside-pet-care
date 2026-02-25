@@ -129,6 +129,7 @@ export default function AdminDashboard() {
                 <th>Contact</th>
                 <th>Address</th>
                 <th>Schedule</th>
+                <th>Price</th>
                 <th>Pets</th>
               </tr>
             </thead>
@@ -152,11 +153,12 @@ export default function AdminDashboard() {
                       </td>
                       <td>{payload.address || 'N/A'}</td>
                       <td>{formatSchedule(payload)}</td>
+                      <td>{payload.price || 'N/A'}</td>
                       <td style={{ fontWeight: isExpanded ? 'bold' : 'normal' }}>{petNames || 'N/A'}</td>
                     </tr>
                     {isExpanded && pets.length > 0 && (
                       <tr style={{ backgroundColor: '#f9f9f9' }}>
-                        <td colSpan={8} style={{ padding: '12px' }}>
+                        <td colSpan={9} style={{ padding: '12px' }}>
                           <div style={{ fontWeight: 'bold', marginBottom: '12px' }}>Pet Details:</div>
                           {pets.map((pet, idx) => (
                             <div key={idx} style={{ marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid #ddd' }}>

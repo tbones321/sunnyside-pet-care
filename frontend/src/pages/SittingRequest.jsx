@@ -37,7 +37,7 @@ export default function SittingRequest() {
       alert('End date must be the same or after the start date.')
       return false
     }
-    const full = { ...payload, fromDate, toDate }
+    const full = { ...payload, fromDate, toDate, price: `$${totalPrice}` }
     // send to backend and return a promise that resolves/rejects so RequestForm can handle errors
     return fetch('http://localhost:8080/api/requests', {
       method: 'POST',

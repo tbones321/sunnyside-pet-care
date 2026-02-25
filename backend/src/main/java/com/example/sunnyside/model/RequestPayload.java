@@ -9,6 +9,7 @@ public class RequestPayload {
     private String email;
     private String phone;
     private List<Pet> pets;
+    private String price;
 
     // Walk fields
     private String walkTime;
@@ -35,6 +36,9 @@ public class RequestPayload {
 
     public List<Pet> getPets() { return pets; }
     public void setPets(List<Pet> pets) { this.pets = pets; }
+
+    public String getPrice() { return price; }
+    public void setPrice(String price) { this.price = price; }
 
     public String getWalkTime() { return walkTime; }
     public void setWalkTime(String walkTime) { this.walkTime = walkTime; }

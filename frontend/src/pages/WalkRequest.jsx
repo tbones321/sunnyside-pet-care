@@ -43,7 +43,7 @@ export default function WalkRequest() {
     }
     const hour24 = String(h).padStart(2, '0')
     const walkTime = `${date}T${hour24}:${minute}`
-    const full = { ...payload, walkTime, duration }
+    const full = { ...payload, walkTime, duration, price: `$${totalPrice}` }
     // send to backend and return a promise that resolves/rejects for RequestForm to handle
     return fetch('http://localhost:8080/api/requests', {
       method: 'POST',
