@@ -43,7 +43,17 @@ export default function Calendar({ acceptedRequests = [] }) {
       const payload = record.payload || {}
       if (payload.walkTime && payload.walkTime.startsWith(dateStr)) return true
       if (payload.fromDate && payload.toDate) {
-        return dateStr >= payload.fromDate && dateStr <= payload.toDate
+        // For multi-day sittings, show on every day within the range (inclusive)
+        const currentDate = new Date(dateStr)
+        const fromDate = new Date(payload.fromDate)
+        const toDate = new Date(payload.toDate)
+
+        // Set time to start of day for accurate date comparison
+        currentDate.setHours(0, 0, 0, 0)
+        fromDate.setHours(0, 0, 0, 0)
+        toDate.setHours(0, 0, 0, 0)
+
+        return currentDate >= fromDate && currentDate <= toDate
       }
       return false
     })

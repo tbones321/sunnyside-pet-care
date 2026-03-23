@@ -2,4 +2,8 @@ com\example\sunnyside\controller\RequestController.class
 com\example\sunnyside\model\RequestPayload.class
 com\example\sunnyside\SunnysideApplication.class
 com\example\sunnyside\controller\HealthController.class
+com\example\sunnyside\controller\PricingController.class
+com\example\sunnyside\controller\RequestController$RequestRecord.class
+com\example\sunnyside\model\Pricing.class
 com\example\sunnyside\model\RequestPayload$Pet.class
+com\example\sunnyside\config\CorsConfig.class

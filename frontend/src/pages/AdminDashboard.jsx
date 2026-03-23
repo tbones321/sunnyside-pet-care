@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Calendar from '../components/Calendar'
 import AcceptedList from '../components/AcceptedList'
+import PricingSection from '../components/PricingSection'
 
 function formatSchedule(payload) {
   if (payload.walkTime) {
@@ -69,6 +70,9 @@ export default function AdminDashboard() {
   }, [])
 
   function handleDecline(recordId) {
+    if (!window.confirm('Are you sure you want to delete this request? Consider emailing the client first using the Email Client button.')) {
+      return
+    }
     fetch(`http://localhost:8080/api/requests/${recordId}`, { 
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
@@ -103,13 +107,20 @@ export default function AdminDashboard() {
       <h2>Admin Dashboard</h2>
       <p>View pet walk and sitting requests.</p>
 
-      {acceptedRequests.length > 0 && (
-        <div style={{ marginBottom: 24, padding: 12, backgroundColor: '#e8f5e9', borderRadius: 8, border: '1px solid #c8e6c9' }}>
-          <h3 style={{ margin: '0 0 12px 0', color: '#2e7d32' }}>Accepted Walks & Sittings Calendar</h3>
-          <Calendar acceptedRequests={acceptedRequests} />
-          <AcceptedList acceptedRequests={acceptedRequests} onRemove={handleRemoveAccepted} />
-        </div>
-      )}
+      <PricingSection />
+
+      {/* Calendar Section - Always visible */}
+      <div style={{ marginBottom: 24, padding: 12, backgroundColor: '#e8f5e9', borderRadius: 8, border: '1px solid #c8e6c9' }}>
+        <h3 style={{ margin: '0 0 12px 0', color: '#2e7d32' }}>Accepted Walks & Sittings Calendar</h3>
+        {acceptedRequests.length === 0 ? (
+          <p style={{ color: '#666', fontStyle: 'italic' }}>No accepted requests yet. Calendar will show scheduled walks and sittings here.</p>
+        ) : (
+          <>
+            <Calendar acceptedRequests={acceptedRequests} />
+            <AcceptedList acceptedRequests={acceptedRequests} onRemove={handleRemoveAccepted} />
+          </>
+        )}
+      </div>
 
       {status === 'loading' && <div>Loading requests...</div>}
       {status === 'error' && <div className="error">{error}</div>}
@@ -175,6 +186,19 @@ export default function AdminDashboard() {
                             </div>
                           ))}
                           <div style={{ marginTop: '16px', display: 'flex', gap: 8 }}>
+                            <button
+                              className="btn btn-primary"
+                              onClick={() => {
+                                const clientEmail = payload.email || ''
+                                const subject = encodeURIComponent('Re: Pet Care Service Request')
+                                const body = encodeURIComponent(`Hi ${payload.ownerName || 'there'},\n\nI'm following up on your pet care service request.\n\nBest regards\nAnthony Filippo`)
+                                const mailtoUrl = `https://compose.mail.yahoo.com/?to=${clientEmail}&subject=${subject}&body=${body}`
+                                window.open(mailtoUrl, '_blank')
+                              }}
+                              style={{ flex: 1 }}
+                            >
+                              Email Client
+                            </button>
                             <button className="btn btn-ghost" onClick={() => handleDecline(record.id)} style={{ flex: 1 }}>Decline</button>
                             <button className="btn btn-success" onClick={() => handleAccept(record)} style={{ flex: 1 }}>Accept</button>
                           </div>

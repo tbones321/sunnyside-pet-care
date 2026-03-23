@@ -1,3 +1,6 @@
+body { font-family: Arial, Helvetica, sans-serif; margin: 0; padding: 16px; }
+.header { display:flex; justify-content:space-between; align-items:center; }
+nav a { margin-right: 8px; }
 :root{
 	--max-width: 980px;
 	--accent: #2b7a78;
@@ -19,7 +22,7 @@ body{
 	font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 	margin:0; padding:0; background:var(--bg); color:#222; overflow: hidden;
 }
-.content{flex:1;background:#f7fffb; box-shadow: 0 6px 20px rgba(16,24,40,0.06); border-radius:10px;padding:12px; height:100vh; overflow:auto}
+.content{flex:1;background:#f7fffb; box-shadow: 0 6px 20px rgba(16,24,40,0.06); border-radius:10px;padding:12px; height:100vh; overflow:auto; -webkit-overflow-scrolling:touch}
 .header{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
 .header h1{margin:0;font-size:1.2rem;color:var(--accent)}
 nav a{margin-right:12px;color:var(--accent);text-decoration:none;font-weight:600}
@@ -96,8 +99,11 @@ legend{font-weight:700}
 @media (max-width:720px){
 	.header{flex-direction:column;align-items:flex-start;gap:8px}
 	.app{margin:12px;padding:0;flex-direction:column}
+	.content{padding:12px;height:auto;overflow:visible}
+}
+
+@media (max-width:900px){
 	.photo-column{display:none}
-	.content{padding:12px}
 }
 
 /* Photo column */
