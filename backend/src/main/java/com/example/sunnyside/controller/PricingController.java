@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping("/api/pricing")
+@RequestMapping(path = {"/api/pricing", "/api/pricing/"})
 public class PricingController {
 
     private final List<Pricing> pricingList = new CopyOnWriteArrayList<>();
@@ -27,7 +27,7 @@ public class PricingController {
         pricingList.add(new Pricing(counter.getAndIncrement(), "sitting", "Full day (8 hours)", 480, 70.00));
     }
 
-    @GetMapping
+    @GetMapping({"/", ""})
     public List<Pricing> getAllPricing() {
         return pricingList;
     }
@@ -69,6 +69,12 @@ public class PricingController {
 
     @GetMapping("/extra-pet")
     public ExtraPetPricing getExtraPetPricing() {
+        return new ExtraPetPricing(walkExtraPetPrice, sittingExtraPetPrice);
+    }
+
+    // Alternate public endpoint in case hyphenated path causes issues in some environments/tools
+    @GetMapping("/extra")
+    public ExtraPetPricing getExtraPetPricingAlt() {
         return new ExtraPetPricing(walkExtraPetPrice, sittingExtraPetPrice);
     }
 
