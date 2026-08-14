@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react'
 
 export default function PricingSection() {
-  const [pricing, setPricing] = useState([])
+  // Defaults mirror backend controller defaults so admin and public views remain usable
+  const DEFAULT_PRICING = [
+    { id: 1, serviceType: 'walk', durationLabel: '15 min', durationMinutes: 15, price: 10.0 },
+    { id: 2, serviceType: 'walk', durationLabel: '30 min', durationMinutes: 30, price: 18.0 },
+    { id: 3, serviceType: 'walk', durationLabel: '1 hour', durationMinutes: 60, price: 30.0 },
+    { id: 4, serviceType: 'sitting', durationLabel: 'Half day (4 hours)', durationMinutes: 240, price: 40.0 },
+    { id: 5, serviceType: 'sitting', durationLabel: 'Full day (8 hours)', durationMinutes: 480, price: 70.0 }
+  ]
+  const DEFAULT_EXTRA = { walk: 10, sitting: 20 }
+
+  const [pricing, setPricing] = useState(DEFAULT_PRICING)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [extraPetFees, setExtraPetFees] = useState({ walk: 10, sitting: 20 })
+  const [extraPetFees, setExtraPetFees] = useState(DEFAULT_EXTRA)
   const [extraPetMessage, setExtraPetMessage] = useState(null)
   const [newForm, setNewForm] = useState({
     serviceType: 'walk',
@@ -22,12 +32,14 @@ export default function PricingSection() {
     fetch('/api/pricing')
       .then(res => res.json())
       .then(data => {
-        setPricing(Array.isArray(data) ? data : [])
+        setPricing(Array.isArray(data) ? data : DEFAULT_PRICING)
         setLoading(false)
+        setError(null)
       })
       .catch(err => {
-        setError('Failed to load pricing')
+        setError('Failed to load pricing — showing defaults')
         setLoading(false)
+        // keep DEFAULT_PRICING
       })
   }
 
@@ -40,7 +52,7 @@ export default function PricingSection() {
         }
       })
       .catch(() => {
-        // Ignore this error in admin UI, pricing list still loads
+        // Ignore this error in admin UI, keep DEFAULT_EXTRA
       })
   }
 

@@ -2,10 +2,21 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
-  const [pricing, setPricing] = useState([])
+  // Default pricing taken from the current backend defaults so the UI still shows values
+  // if the backend is temporarily unavailable/restarting.
+  const DEFAULT_PRICING = [
+    { id: 1, serviceType: 'walk', durationLabel: '15 min', durationMinutes: 15, price: 10.0 },
+    { id: 2, serviceType: 'walk', durationLabel: '30 min', durationMinutes: 30, price: 18.0 },
+    { id: 3, serviceType: 'walk', durationLabel: '1 hour', durationMinutes: 60, price: 30.0 },
+    { id: 4, serviceType: 'sitting', durationLabel: 'Half day (4 hours)', durationMinutes: 240, price: 40.0 },
+    { id: 5, serviceType: 'sitting', durationLabel: 'Full day (8 hours)', durationMinutes: 480, price: 70.0 }
+  ]
+  const DEFAULT_EXTRA = { walk: 10, sitting: 20 }
+
+  const [pricing, setPricing] = useState(DEFAULT_PRICING)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [extraPetFees, setExtraPetFees] = useState({ walk: 10, sitting: 20 })
+  const [extraPetFees, setExtraPetFees] = useState(DEFAULT_EXTRA)
 
   useEffect(() => {
     console.log('Fetching pricing data...')
@@ -16,13 +27,15 @@ export default function Home() {
       })
       .then(data => {
         console.log('Pricing data received:', data)
-        setPricing(Array.isArray(data) ? data : [])
+        setPricing(Array.isArray(data) ? data : DEFAULT_PRICING)
         setLoading(false)
+        setError(null)
       })
       .catch(err => {
-        console.error('Failed to load pricing:', err)
-        setError('Failed to load pricing')
+        console.error('Failed to load pricing, using defaults:', err)
+        setError('Failed to load pricing — showing default values')
         setLoading(false)
+        // keep DEFAULT_PRICING in state so the UI remains usable
       })
 
     fetch('/api/pricing/extra-pet')
@@ -37,8 +50,8 @@ export default function Home() {
         }
       })
       .catch(err => {
-        console.error('Failed to load extra pet fees:', err)
-        // keep defaults if extra pet fee fetch fails
+        console.error('Failed to load extra pet fees, using defaults:', err)
+        // keep DEFAULT_EXTRA if extra pet fee fetch fails
       })
   }, [])
 
