@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Calendar from '../components/Calendar'
 import AcceptedList from '../components/AcceptedList'
 import PricingSection from '../components/PricingSection'
+import { useAuth } from '../contexts/AuthContext'
 
 function formatSchedule(payload) {
   if (payload.walkTime) {
@@ -24,6 +26,20 @@ function formatReceivedAt(value) {
 }
 
 export default function AdminDashboard() {
+  const { getAuthToken, isAuthenticated } = useAuth()
+  const navigate = useNavigate()
+
+  // Check authentication on component mount
+  useEffect(() => {
+    if (!isAuthenticated || !getAuthToken()) {
+      navigate('/login')
+      return
+    }
+  }, [isAuthenticated, getAuthToken, navigate])
+  const [backgroundFile, setBackgroundFile] = useState(null)
+  const [backgroundPreviewUrl, setBackgroundPreviewUrl] = useState(null)
+  const [backgroundMessage, setBackgroundMessage] = useState(null)
+  
   // Initialize acceptedRequests from localStorage
   const [acceptedRequests, setAcceptedRequests] = useState(() => {
     try {
@@ -46,11 +62,55 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     let active = true
+    let currentUrl = null
+
+    const cleanup = () => {
+      if (currentUrl) {
+        URL.revokeObjectURL(currentUrl)
+        currentUrl = null
+      }
+    }
+
+    const loadBackgroundPreview = async () => {
+      try {
+        const response = await fetch('/api/settings/background-image')
+        if (!response.ok) {
+          cleanup()
+          setBackgroundPreviewUrl(null)
+          return
+        }
+        const blob = await response.blob()
+        cleanup()
+        currentUrl = URL.createObjectURL(blob)
+        if (active) {
+          setBackgroundPreviewUrl(currentUrl)
+        }
+      } catch (err) {
+        console.error('Failed to load background image preview:', err)
+        setBackgroundPreviewUrl(null)
+      }
+    }
+
+    loadBackgroundPreview()
+    return () => {
+      active = false
+      cleanup()
+    }
+  }, [])
+
+  useEffect(() => {
+    let active = true
     setStatus('loading')
-    fetch('http://localhost:8080/api/requests')
+    const token = getAuthToken()
+    fetch('/api/requests', {
+      headers: token ? { 'Authorization': `Bearer ${token}` } : {}
+    })
       .then(async res => {
         if (!res.ok) {
           const txt = await res.text()
+          if (res.status === 401 || txt.includes('Invalid token')) {
+            throw new Error('Your session has expired. Please log in again.')
+          }
           throw new Error(txt || res.statusText || 'Failed to load requests')
         }
         return res.json()
@@ -67,15 +127,19 @@ export default function AdminDashboard() {
       })
 
     return () => { active = false }
-  }, [])
+  }, [getAuthToken])
 
   function handleDecline(recordId) {
     if (!window.confirm('Are you sure you want to delete this request? Consider emailing the client first using the Email Client button.')) {
       return
     }
-    fetch(`http://localhost:8080/api/requests/${recordId}`, { 
+    const token = getAuthToken()
+    fetch(`/api/requests/${recordId}`, { 
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      }
     })
       .then(() => {
         setRequests(prev => prev.filter(r => r.id !== recordId))
@@ -87,9 +151,13 @@ export default function AdminDashboard() {
   function handleAccept(record) {
     const payload = record.payload || {}
     setAcceptedRequests(prev => [...prev, { ...record, payload }])
-    fetch(`http://localhost:8080/api/requests/${record.id}`, { 
+    const token = getAuthToken()
+    fetch(`/api/requests/${record.id}`, { 
       method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 
+        'Content-Type': 'application/json',
+        ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+      }
     })
       .then(() => {
         setRequests(prev => prev.filter(r => r.id !== record.id))
@@ -102,10 +170,76 @@ export default function AdminDashboard() {
     setAcceptedRequests(prev => prev.filter(r => r.id !== recordId))
   }
 
+  function handleBackgroundFileChange(event) {
+    const file = event.target.files?.[0] ?? null
+    setBackgroundFile(file)
+    if (backgroundPreviewUrl) {
+      URL.revokeObjectURL(backgroundPreviewUrl)
+    }
+    if (file) {
+      setBackgroundPreviewUrl(URL.createObjectURL(file))
+    } else {
+      setBackgroundPreviewUrl(null)
+    }
+  }
+
+  async function handleBackgroundUpload(event) {
+    event.preventDefault()
+    setBackgroundMessage(null)
+
+    if (!backgroundFile) {
+      setBackgroundMessage('Please choose an image to upload.')
+      return
+    }
+
+    const formData = new FormData()
+    formData.append('image', backgroundFile)
+
+    try {
+      const response = await fetch('/api/settings/background-image', {
+        method: 'POST',
+        body: formData
+      })
+
+      if (!response.ok) {
+        const text = await response.text()
+        throw new Error(text || 'Upload failed')
+      }
+
+      setBackgroundMessage('Background image uploaded successfully.')
+      window.dispatchEvent(new Event('background-updated'))
+    } catch (err) {
+      setBackgroundMessage(err.message || 'Failed to upload background image.')
+    }
+  }
+
   return (
     <section>
       <h2>Admin Dashboard</h2>
       <p>View pet walk and sitting requests.</p>
+
+      <div style={{ marginBottom: 24, padding: 16, backgroundColor: 'rgba(255,255,255,0.75)', borderRadius: 10, border: '1px solid rgba(0,0,0,0.08)' }}>
+        <h3 style={{ margin: '0 0 12px 0' }}>Upload Site Background</h3>
+        <p style={{ margin: '0 0 12px 0', color: '#444' }}>Choose an image to use as the website background for all pages.</p>
+        {backgroundMessage && (
+          <div style={{ marginBottom: 12, padding: 10, borderRadius: 8, backgroundColor: 'rgba(232,245,233,0.85)', color: '#2e7d32' }}>
+            {backgroundMessage}
+          </div>
+        )}
+        <form onSubmit={handleBackgroundUpload} style={{ display: 'grid', gap: 12 }}>
+          <input type="file" accept="image/*" onChange={handleBackgroundFileChange} />
+          {backgroundPreviewUrl && (
+            <img
+              src={backgroundPreviewUrl}
+              alt="Background preview"
+              style={{ width: '100%', maxHeight: 220, objectFit: 'cover', borderRadius: 10, border: '1px solid rgba(0,0,0,0.08)' }}
+            />
+          )}
+          <button type="submit" className="btn btn-primary" style={{ width: 'fit-content' }}>
+            Upload Background Image
+          </button>
+        </form>
+      </div>
 
       <PricingSection />
 
@@ -153,7 +287,7 @@ export default function AdminDashboard() {
 
                 return (
                   <React.Fragment key={record.id}>
-                    <tr onClick={() => setExpandedId(isExpanded ? null : record.id)} style={{ cursor: 'pointer' }}>
+                    <tr className="admin-row" onClick={() => setExpandedId(isExpanded ? null : record.id)} style={{ cursor: 'pointer' }}>
                       <td>{record.id}</td>
                       <td>{formatReceivedAt(record.receivedAt)}</td>
                       <td>{payload.service || 'N/A'}</td>
@@ -185,6 +319,9 @@ export default function AdminDashboard() {
                               <div><strong>Notes:</strong> {pet.notes || 'None'}</div>
                             </div>
                           ))}
+                          <div style={{ marginBottom: '12px', color: '#8a2b06', fontWeight: 600 }}>
+                            Please email the client before accepting this request.
+                          </div>
                           <div style={{ marginTop: '16px', display: 'flex', gap: 8 }}>
                             <button
                               className="btn btn-primary"

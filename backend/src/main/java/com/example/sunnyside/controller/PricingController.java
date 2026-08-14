@@ -1,5 +1,6 @@
 package com.example.sunnyside.controller;
 
+import com.example.sunnyside.model.ExtraPetPricing;
 import com.example.sunnyside.model.Pricing;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ public class PricingController {
 
     private final List<Pricing> pricingList = new CopyOnWriteArrayList<>();
     private final AtomicLong counter = new AtomicLong(1);
+    private volatile double walkExtraPetPrice = 10.0;
+    private volatile double sittingExtraPetPrice = 20.0;
 
     public PricingController() {
         // Initialize with some default pricing options
@@ -62,5 +65,17 @@ public class PricingController {
             return ResponseEntity.ok().body("Pricing option deleted");
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/extra-pet")
+    public ExtraPetPricing getExtraPetPricing() {
+        return new ExtraPetPricing(walkExtraPetPrice, sittingExtraPetPrice);
+    }
+
+    @PutMapping("/extra-pet")
+    public ResponseEntity<ExtraPetPricing> updateExtraPetPricing(@RequestBody ExtraPetPricing updatedPricing) {
+        this.walkExtraPetPrice = updatedPricing.getWalkExtraPetPrice();
+        this.sittingExtraPetPrice = updatedPricing.getSittingExtraPetPrice();
+        return ResponseEntity.ok(new ExtraPetPricing(walkExtraPetPrice, sittingExtraPetPrice));
     }
 }

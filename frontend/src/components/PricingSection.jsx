@@ -4,6 +4,8 @@ export default function PricingSection() {
   const [pricing, setPricing] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [extraPetFees, setExtraPetFees] = useState({ walk: 10, sitting: 20 })
+  const [extraPetMessage, setExtraPetMessage] = useState(null)
   const [newForm, setNewForm] = useState({
     serviceType: 'walk',
     durationLabel: '',
@@ -13,10 +15,11 @@ export default function PricingSection() {
 
   useEffect(() => {
     fetchPricing()
+    fetchExtraPetPricing()
   }, [])
 
   function fetchPricing() {
-    fetch('http://localhost:8080/api/pricing')
+    fetch('/api/pricing')
       .then(res => res.json())
       .then(data => {
         setPricing(Array.isArray(data) ? data : [])
@@ -25,6 +28,54 @@ export default function PricingSection() {
       .catch(err => {
         setError('Failed to load pricing')
         setLoading(false)
+      })
+  }
+
+  function fetchExtraPetPricing() {
+    fetch('/api/pricing/extra-pet')
+      .then(res => res.json())
+      .then(data => {
+        if (data && typeof data.walkExtraPetPrice === 'number' && typeof data.sittingExtraPetPrice === 'number') {
+          setExtraPetFees({ walk: data.walkExtraPetPrice, sitting: data.sittingExtraPetPrice })
+        }
+      })
+      .catch(() => {
+        // Ignore this error in admin UI, pricing list still loads
+      })
+  }
+
+  function handleUpdateExtraPetPricing(e) {
+    e.preventDefault()
+    setExtraPetMessage(null)
+
+    const walkFee = parseFloat(extraPetFees.walk)
+    const sittingFee = parseFloat(extraPetFees.sitting)
+    if (Number.isNaN(walkFee) || Number.isNaN(sittingFee) || walkFee < 0 || sittingFee < 0) {
+      setExtraPetMessage('Please enter valid positive extra pet fees.')
+      return
+    }
+
+    fetch('/api/pricing/extra-pet', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        walkExtraPetPrice: walkFee,
+        sittingExtraPetPrice: sittingFee
+      })
+    })
+      .then(async res => {
+        if (!res.ok) {
+          const txt = await res.text()
+          throw new Error(txt || res.statusText || 'Failed to update extra pet fees')
+        }
+        return res.json()
+      })
+      .then(data => {
+        setExtraPetFees({ walk: data.walkExtraPetPrice, sitting: data.sittingExtraPetPrice })
+        setExtraPetMessage('Extra pet fees updated successfully.')
+      })
+      .catch(() => {
+        setExtraPetMessage('Failed to update extra pet fees.')
       })
   }
 
@@ -42,7 +93,7 @@ export default function PricingSection() {
       price: parseFloat(newForm.price)
     }
 
-    fetch('http://localhost:8080/api/pricing', {
+    fetch('/api/pricing', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -64,7 +115,7 @@ export default function PricingSection() {
   function handleDeletePricing(id) {
     if (!window.confirm('Are you sure you want to delete this pricing option?')) return
 
-    fetch(`http://localhost:8080/api/pricing/${id}`, {
+    fetch(`/api/pricing/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
@@ -82,6 +133,38 @@ export default function PricingSection() {
       <h3 style={{ margin: '0 0 16px 0' }}>Pricing Management</h3>
 
       {error && <div style={{ color: 'red', marginBottom: 12, padding: 8, backgroundColor: '#ffebee', borderRadius: 4 }}>{error}</div>}
+
+      <form onSubmit={handleUpdateExtraPetPricing} style={{ display: 'grid', gap: 12, marginBottom: 24, padding: 12, background: 'white', borderRadius: 8, border: '1px solid #ddd' }}>
+        <h4 style={{ margin: '0 0 12px 0' }}>Extra Pet Fee Settings</h4>
+        {extraPetMessage && <div style={{ color: extraPetMessage.includes('Failed') ? '#c62828' : '#2e7d32', padding: 8, borderRadius: 6, backgroundColor: extraPetMessage.includes('Failed') ? '#ffebee' : '#e8f5e9' }}>{extraPetMessage}</div>}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 12 }}>
+          <label style={{ display: 'grid', gap: 6 }}>
+            Walk extra pet fee ($)
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={extraPetFees.walk}
+              onChange={e => setExtraPetFees({ ...extraPetFees, walk: e.target.value })}
+              style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #ddd' }}
+            />
+          </label>
+          <label style={{ display: 'grid', gap: 6 }}>
+            Sitting extra pet fee ($)
+            <input
+              type="number"
+              min="0"
+              step="0.01"
+              value={extraPetFees.sitting}
+              onChange={e => setExtraPetFees({ ...extraPetFees, sitting: e.target.value })}
+              style={{ width: '100%', padding: 8, borderRadius: 6, border: '1px solid #ddd' }}
+            />
+          </label>
+        </div>
+        <button type="submit" style={{ width: 'fit-content', padding: '10px 16px', backgroundColor: '#1976d2', color: '#fff', borderRadius: 6, border: 'none', cursor: 'pointer' }}>
+          Save Extra Pet Fees
+        </button>
+      </form>
 
       {loading && <div>Loading pricing...</div>}
 

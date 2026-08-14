@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsChange, priceBreakdown }) {
   const [form, setForm] = useState({ ownerName: '', address: '', email: '', phone: '' })
@@ -6,6 +6,13 @@ export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsC
   const [pets, setPets] = useState([])
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState(null)
+
+  // Notify parent when pets change
+  useEffect(() => {
+    if (onPetsChange) {
+      onPetsChange(pets.length)
+    }
+  }, [pets.length, onPetsChange])
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -73,21 +80,13 @@ export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsC
     const age = petForm.age && petForm.age.toString().trim() ? petForm.age.toString().trim() : '0'
     const behaviors = petForm.behaviors ? [...petForm.behaviors] : []
     if (petForm.behaviorOther && petForm.behaviorOther.toString().trim()) behaviors.push(petForm.behaviorOther.toString().trim())
-    setPets(prev => {
-      const updated = [...prev, { ...petForm, species, breed, age, behaviors }]
-      onPetsChange && onPetsChange(updated.length)
-      return updated
-    })
+    setPets(prev => [...prev, { ...petForm, species, breed, age, behaviors }])
     setPetForm({ name: '', species: '', breed: '', age: '', size: 'Medium', sex: 'Unknown', weight: '', vaccines: [], behaviors: [], behaviorOther: '', notes: '' })
     setError(null)
   }
 
   function removePet(index) {
-    setPets(prev => {
-      const updated = prev.filter((_, i) => i !== index)
-      onPetsChange && onPetsChange(updated.length)
-      return updated
-    })
+    setPets(prev => prev.filter((_, i) => i !== index))
   }
 
   function handleSubmit(e) {
@@ -143,7 +142,7 @@ export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsC
           </div>
         )}
         <div style={{ display: 'grid', gap: 8 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          <div className="two-col">
             <label>
               Owner's name
               <input className="form-input" name="ownerName" value={form.ownerName} onChange={handleChange} required />
@@ -155,7 +154,7 @@ export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsC
             </label>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+          <div className="two-col">
             <label>
               Address
               <input className="form-input" name="address" placeholder="123 Main St, City, ST 12345" value={form.address} onChange={handleChange} required />
@@ -251,7 +250,7 @@ export default function RequestForm({ serviceName = 'Service', onSubmit, onPetsC
               </div>
             </div>
 
-            <div className="pet-list" style={{ minWidth: 320 }}>
+            <div className="pet-list">
               <h4 style={{ marginTop: 0 }}>Pets</h4>
               <table className="pets-table">
                 <thead>

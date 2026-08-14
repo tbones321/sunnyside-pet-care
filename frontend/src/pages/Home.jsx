@@ -5,17 +5,40 @@ export default function Home() {
   const [pricing, setPricing] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [extraPetFees, setExtraPetFees] = useState({ walk: 10, sitting: 20 })
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/pricing')
-      .then(res => res.json())
+    console.log('Fetching pricing data...')
+    fetch('/api/pricing')
+      .then(res => {
+        console.log('Pricing response status:', res.status)
+        return res.json()
+      })
       .then(data => {
+        console.log('Pricing data received:', data)
         setPricing(Array.isArray(data) ? data : [])
         setLoading(false)
       })
       .catch(err => {
+        console.error('Failed to load pricing:', err)
         setError('Failed to load pricing')
         setLoading(false)
+      })
+
+    fetch('/api/pricing/extra-pet')
+      .then(res => {
+        console.log('Extra pet response status:', res.status)
+        return res.json()
+      })
+      .then(data => {
+        console.log('Extra pet data received:', data)
+        if (data && typeof data.walkExtraPetPrice === 'number' && typeof data.sittingExtraPetPrice === 'number') {
+          setExtraPetFees({ walk: data.walkExtraPetPrice, sitting: data.sittingExtraPetPrice })
+        }
+      })
+      .catch(err => {
+        console.error('Failed to load extra pet fees:', err)
+        // keep defaults if extra pet fee fetch fails
       })
   }, [])
 
@@ -24,7 +47,7 @@ export default function Home() {
 
   return (
     <section style={{ textAlign: 'center' }}>
-      <h2 className="home-title">Sunnyside Pet Care</h2>
+      <h2 className="home-title">Sunny With A Chance Pet Care</h2>
       <p className="home-subtitle">We care for your pets like family. Choose a service to get started.</p>
       <div className="home-actions">
         <Link to="/request-walk" className="btn btn-primary btn-lg" style={{ textDecoration: 'none' }}>
@@ -57,7 +80,7 @@ export default function Home() {
                 )}
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', color: '#666', fontSize: 14, marginTop: 8 }}>
                   <span>Each additional pet</span>
-                  <span>+$10</span>
+                  <span>+${extraPetFees.walk.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -78,7 +101,7 @@ export default function Home() {
                 )}
                 <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', color: '#666', fontSize: 14, marginTop: 8 }}>
                   <span>Each additional pet</span>
-                  <span>+$10</span>
+                  <span>+${extraPetFees.sitting.toFixed(2)}</span>
                 </div>
               </div>
             </div>

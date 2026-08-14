@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import RequestForm from '../components/RequestForm'
 
 export default function WalkRequest() {
@@ -8,6 +8,28 @@ export default function WalkRequest() {
   const [ampm, setAmpm] = useState('AM')
   const [duration, setDuration] = useState('30')
   const [petCount, setPetCount] = useState(0)
+  const [extraPetFee, setExtraPetFee] = useState(10)
+  const [pricingError, setPricingError] = useState(null)
+
+  useEffect(() => {
+    fetch('/api/pricing/extra-pet')
+      .then(res => {
+        if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
+        return res.json()
+      })
+      .then(data => {
+        if (data && typeof data.walkExtraPetPrice === 'number') {
+          setExtraPetFee(data.walkExtraPetPrice)
+        } else {
+          console.error('Unexpected pricing payload', data)
+          setPricingError('Unable to load extra pet fee, using default values. (invalid payload)')
+        }
+      })
+      .catch(err => {
+        console.error('Failed to fetch extra pet pricing:', err)
+        setPricingError(`Unable to load extra pet fee, using default values. (${err.message})`)
+      })
+  }, [])
 
   const hours = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'))
   const minutes = ['00', '15', '30', '45']
@@ -23,7 +45,7 @@ export default function WalkRequest() {
   }
   const basePrice = basePrices[duration] || 0
   const additionalPets = Math.max(0, petCount - 1)
-  const totalPrice = basePrice + (additionalPets * 10)
+  const totalPrice = basePrice + (additionalPets * extraPetFee)
 
   function handleSubmit(payload) {
     if (!date || !hour) {
@@ -45,7 +67,7 @@ export default function WalkRequest() {
     const walkTime = `${date}T${hour24}:${minute}`
     const full = { ...payload, walkTime, duration, price: `$${totalPrice}` }
     // send to backend and return a promise that resolves/rejects for RequestForm to handle
-    return fetch('http://localhost:8080/api/requests', {
+    return fetch('/api/requests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(full)
@@ -61,8 +83,13 @@ export default function WalkRequest() {
   return (
     <section>
       <h2>Request a Walk</h2>
+      {pricingError && (
+        <div style={{ marginBottom: 12, padding: 10, borderRadius: 8, backgroundColor: '#fff4e5', color: '#7a4f01', border: '1px solid #ffdd99' }}>
+          {pricingError}
+        </div>
+      )}
 
-      <div style={{ display: 'flex', gap: 12, alignItems: 'flex-end', marginBottom: 12 }}>
+      <div className="date-row">
         <label style={{ display: 'flex', flexDirection: 'column' }}>
           Walk date
           <input type="date" min={today} value={date} onChange={e => setDate(e.target.value)} />
@@ -115,7 +142,7 @@ export default function WalkRequest() {
             <div style={{ marginTop: 8 }}>
               <div>{duration} minute walk: ${basePrice}</div>
               {additionalPets > 0 && (
-                <div>Additional pets ({additionalPets} × $10): ${additionalPets * 10}</div>
+                <div>Additional pets ({additionalPets} × ${extraPetFee.toFixed(2)}): ${ (additionalPets * extraPetFee).toFixed(2) }</div>
               )}
               <div style={{ marginTop: 8, paddingTop: 8, borderTop: '1px solid #bae6fd', fontSize: 18, fontWeight: 600 }}>
                 Total Price: ${totalPrice}

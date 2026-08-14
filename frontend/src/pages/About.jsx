@@ -31,7 +31,7 @@ export default function About() {
 
       <h3>Experience</h3>
 
-      <h4>Sunnyside Pet Care — Website Project</h4>
+      <h4>Sunny With A Chance Pet Care — Website Project</h4>
       <p><em>Full Stack Developer | July 2024 – Present</em></p>
       <ul>
         <li>Designed and developed a full-stack web application for a pet care business offering dog walking and pet sitting services</li>
