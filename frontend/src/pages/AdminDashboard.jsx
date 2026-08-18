@@ -73,7 +73,8 @@ export default function AdminDashboard() {
 
     const loadBackgroundPreview = async () => {
       try {
-        const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+        const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+        const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
         const response = await fetch(`${apiBase}/api/settings/background-image`)
         if (!response.ok) {
           cleanup()
@@ -103,7 +104,9 @@ export default function AdminDashboard() {
     let active = true
     setStatus('loading')
     const token = getAuthToken()
-    fetch('/api/requests', {
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
+    fetch(`${apiBase}/api/requests`, {
       headers: token ? { 'Authorization': `Bearer ${token}` } : {}
     })
       .then(async res => {
@@ -135,7 +138,9 @@ export default function AdminDashboard() {
       return
     }
     const token = getAuthToken()
-    fetch(`/api/requests/${recordId}`, { 
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
+    fetch(`${apiBase}/api/requests/${recordId}`, { 
       method: 'DELETE',
       headers: { 
         'Content-Type': 'application/json',
@@ -153,7 +158,9 @@ export default function AdminDashboard() {
     const payload = record.payload || {}
     setAcceptedRequests(prev => [...prev, { ...record, payload }])
     const token = getAuthToken()
-    fetch(`/api/requests/${record.id}`, { 
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
+    fetch(`${apiBase}/api/requests/${record.id}`, { 
       method: 'DELETE',
       headers: { 
         'Content-Type': 'application/json',
@@ -197,10 +204,12 @@ export default function AdminDashboard() {
     formData.append('image', backgroundFile)
 
     try {
-      const response = await fetch('/api/settings/background-image', {
-        method: 'POST',
-        body: formData
-      })
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
+    const response = await fetch(`${apiBase}/api/settings/background-image`, {
+      method: 'POST',
+      body: formData
+    })
 
       if (!response.ok) {
         const text = await response.text()
