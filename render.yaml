@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: sunnyside-backend
+    runtime: java
+    buildCommand: cd backend && mvn -DskipTests package
+    startCommand: cd backend && java -Dserver.port=$PORT -jar target/sunnyside-0.0.1-SNAPSHOT.jar
+    envVars:
+      - key: app.cors.allowed-origins
+        value: https://tbones321.github.io
