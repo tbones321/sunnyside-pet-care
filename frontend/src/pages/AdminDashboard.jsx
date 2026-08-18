@@ -73,7 +73,8 @@ export default function AdminDashboard() {
 
     const loadBackgroundPreview = async () => {
       try {
-        const response = await fetch('/api/settings/background-image')
+        const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+        const response = await fetch(`${apiBase}/api/settings/background-image`)
         if (!response.ok) {
           cleanup()
           setBackgroundPreviewUrl(null)

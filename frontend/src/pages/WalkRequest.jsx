@@ -12,7 +12,8 @@ export default function WalkRequest() {
   const [pricingError, setPricingError] = useState(null)
 
   useEffect(() => {
-    fetch('/api/pricing/extra-pet')
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing/extra-pet`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)
         return res.json()
@@ -67,7 +68,8 @@ export default function WalkRequest() {
     const walkTime = `${date}T${hour24}:${minute}`
     const full = { ...payload, walkTime, duration, price: `$${totalPrice}` }
     // send to backend and return a promise that resolves/rejects for RequestForm to handle
-    return fetch('/api/requests', {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    return fetch(`${apiBase}/api/requests`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(full)

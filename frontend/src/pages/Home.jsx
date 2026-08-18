@@ -19,8 +19,9 @@ export default function Home() {
   const [extraPetFees, setExtraPetFees] = useState(DEFAULT_EXTRA)
 
   useEffect(() => {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
     console.log('Fetching pricing data...')
-    fetch('/api/pricing')
+    fetch(`${apiBase}/api/pricing`)
       .then(res => {
         console.log('Pricing response status:', res.status)
         return res.json()
@@ -38,7 +39,7 @@ export default function Home() {
         // keep DEFAULT_PRICING in state so the UI remains usable
       })
 
-    fetch('/api/pricing/extra-pet')
+    fetch(`${apiBase}/api/pricing/extra-pet`)
       .then(res => {
         console.log('Extra pet response status:', res.status)
         return res.json()
@@ -75,7 +76,7 @@ export default function Home() {
         <h3 style={{ marginTop: 0 }}>Pricing</h3>
         {loading && <div>Loading pricing...</div>}
         {error && <div style={{ color: 'red', padding: 12, backgroundColor: '#ffebee', borderRadius: 4 }}>{error}</div>}
-        {!loading && !error && (
+        {!loading && (
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, maxWidth: 800, margin: '0 auto' }}>
             {/* Walk Pricing */}
             <div style={{ padding: 16, border: '1px solid #ddd', borderRadius: 8, backgroundColor: '#f9f9f9' }}>

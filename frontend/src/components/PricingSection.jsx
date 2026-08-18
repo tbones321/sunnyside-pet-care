@@ -29,7 +29,8 @@ export default function PricingSection() {
   }, [])
 
   function fetchPricing() {
-    fetch('/api/pricing')
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing`)
       .then(res => res.json())
       .then(data => {
         setPricing(Array.isArray(data) ? data : DEFAULT_PRICING)
@@ -44,7 +45,8 @@ export default function PricingSection() {
   }
 
   function fetchExtraPetPricing() {
-    fetch('/api/pricing/extra-pet')
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing/extra-pet`)
       .then(res => res.json())
       .then(data => {
         if (data && typeof data.walkExtraPetPrice === 'number' && typeof data.sittingExtraPetPrice === 'number') {
@@ -67,7 +69,8 @@ export default function PricingSection() {
       return
     }
 
-    fetch('/api/pricing/extra-pet', {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing/extra-pet`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -105,7 +108,8 @@ export default function PricingSection() {
       price: parseFloat(newForm.price)
     }
 
-    fetch('/api/pricing', {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
@@ -127,7 +131,8 @@ export default function PricingSection() {
   function handleDeletePricing(id) {
     if (!window.confirm('Are you sure you want to delete this pricing option?')) return
 
-    fetch(`/api/pricing/${id}`, {
+    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    fetch(`${apiBase}/api/pricing/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' }
     })
