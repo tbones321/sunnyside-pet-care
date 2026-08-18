@@ -17,12 +17,19 @@ public class AuthController {
     
     @Autowired
     private JwtTokenProvider jwtTokenProvider;
-    
-    private static final String ADMIN_USERNAME = "admin";
-    private static final String ADMIN_PASSWORD = "admin123";
-    
+
+    @org.springframework.beans.factory.annotation.Value("${ADMIN_USERNAME:admin}")
+    private String ADMIN_USERNAME;
+
+    @org.springframework.beans.factory.annotation.Value("${ADMIN_PASSWORD:}")
+    private String ADMIN_PASSWORD;
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        if (ADMIN_PASSWORD == null || ADMIN_PASSWORD.isEmpty()) {
+            // Require an admin password to be set via environment variable for production safety
+            return ResponseEntity.status(503).body(new ErrorResponse("Admin password not configured. Set ADMIN_PASSWORD environment variable."));
+        }
         if (ADMIN_USERNAME.equals(loginRequest.getUsername()) && 
             ADMIN_PASSWORD.equals(loginRequest.getPassword())) {
             String token = jwtTokenProvider.generateToken(loginRequest.getUsername());

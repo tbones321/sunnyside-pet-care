@@ -57,7 +57,6 @@ export default function Login() {
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
-        <p className="demo-credentials">Demo: admin / admin123</p>
       </div>
     </div>
   )
