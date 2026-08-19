@@ -20,11 +20,11 @@ public class PricingController {
 
     public PricingController() {
         // Initialize with some default pricing options
-        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "15 min", 15, 10.00));
-        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "30 min", 30, 18.00));
-        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "1 hour", 60, 30.00));
-        pricingList.add(new Pricing(counter.getAndIncrement(), "sitting", "Half day (4 hours)", 240, 40.00));
-        pricingList.add(new Pricing(counter.getAndIncrement(), "sitting", "Full day (8 hours)", 480, 70.00));
+        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "20 min", 20, 17.00));
+        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "30 min", 30, 23.00));
+        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "45 min", 45, 29.00));
+        pricingList.add(new Pricing(counter.getAndIncrement(), "walk", "1 hour", 60, 33.00));
+        pricingList.add(new Pricing(counter.getAndIncrement(), "sitting", "Full day (24 hours)", 1440, 70.00));
     }
 
     @GetMapping({"/", ""})

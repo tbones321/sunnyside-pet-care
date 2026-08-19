@@ -28,11 +28,11 @@ public class PricingControllerJpa {
     @PostConstruct
     public void seedDefaults() {
         if (pricingRepository.count() == 0) {
-            pricingRepository.save(new PricingEntity("walk", "15 min", 15, 10.00));
-            pricingRepository.save(new PricingEntity("walk", "30 min", 30, 18.00));
-            pricingRepository.save(new PricingEntity("walk", "1 hour", 60, 30.00));
-            pricingRepository.save(new PricingEntity("sitting", "Half day (4 hours)", 240, 40.00));
-            pricingRepository.save(new PricingEntity("sitting", "Full day (8 hours)", 480, 70.00));
+            pricingRepository.save(new PricingEntity("walk", "20 min", 20, 17.00));
+            pricingRepository.save(new PricingEntity("walk", "30 min", 30, 23.00));
+            pricingRepository.save(new PricingEntity("walk", "45 min", 45, 29.00));
+            pricingRepository.save(new PricingEntity("walk", "1 hour", 60, 33.00));
+            pricingRepository.save(new PricingEntity("sitting", "Full day (24 hours)", 1440, 70.00));
         }
 
         if (extraPetRepo.count() == 0) {

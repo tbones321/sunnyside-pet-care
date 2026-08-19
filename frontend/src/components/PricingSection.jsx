@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react'
 export default function PricingSection() {
   // Defaults mirror backend controller defaults so admin and public views remain usable
   const DEFAULT_PRICING = [
-    { id: 1, serviceType: 'walk', durationLabel: '15 min', durationMinutes: 15, price: 10.0 },
-    { id: 2, serviceType: 'walk', durationLabel: '30 min', durationMinutes: 30, price: 18.0 },
-    { id: 3, serviceType: 'walk', durationLabel: '1 hour', durationMinutes: 60, price: 30.0 },
-    { id: 4, serviceType: 'sitting', durationLabel: 'Half day (4 hours)', durationMinutes: 240, price: 40.0 },
-    { id: 5, serviceType: 'sitting', durationLabel: 'Full day (8 hours)', durationMinutes: 480, price: 70.0 }
+    { id: 1, serviceType: 'walk', durationLabel: '20 min', durationMinutes: 20, price: 17.0 },
+    { id: 2, serviceType: 'walk', durationLabel: '30 min', durationMinutes: 30, price: 23.0 },
+    { id: 3, serviceType: 'walk', durationLabel: '45 min', durationMinutes: 45, price: 29.0 },
+    { id: 4, serviceType: 'walk', durationLabel: '1 hour', durationMinutes: 60, price: 33.0 },
+    { id: 5, serviceType: 'sitting', durationLabel: 'Full day (24 hours)', durationMinutes: 1440, price: 70.0 }
   ]
   const DEFAULT_EXTRA = { walk: 10, sitting: 20 }
 

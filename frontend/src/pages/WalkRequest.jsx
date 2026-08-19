@@ -40,7 +40,7 @@ export default function WalkRequest() {
 
   // Calculate total price
   const basePrices = {
-    '20': 16,
+    '20': 17,
     '30': 23,
     '45': 29,
     '60': 33
