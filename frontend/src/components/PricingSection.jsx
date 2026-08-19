@@ -29,7 +29,8 @@ export default function PricingSection() {
   }, [])
 
   function fetchPricing() {
-    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
     fetch(`${apiBase}/api/pricing`)
       .then(res => res.json())
       .then(data => {

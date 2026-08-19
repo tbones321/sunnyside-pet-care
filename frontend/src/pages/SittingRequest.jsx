@@ -11,7 +11,8 @@ export default function SittingRequest() {
   const today = new Date().toISOString().slice(0, 10)
 
   useEffect(() => {
-    const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+    const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
     fetch(`${apiBase}/api/pricing/extra-pet`)
       .then(res => {
         if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`)

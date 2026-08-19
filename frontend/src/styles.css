@@ -215,3 +215,30 @@ legend{font-weight:700}
 .logout-btn:hover {
 	background: #b71c1c;
 }
+
+/* Hamburger menu */
+.hamburger {
+	display: none;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+}
+.hamburger .bar {
+	display: block;
+	width: 24px;
+	height: 2px;
+	background: var(--accent);
+	margin: 4px 0;
+	transition: transform 0.2s, opacity 0.2s;
+}
+@media (max-width:720px){
+	.hamburger { display:block; align-self:flex-end }
+	.header { position: relative }
+	/* hide nav by default on mobile and show only when .mobile-open */
+	nav { display: none }
+	nav.mobile-open { display: flex; flex-direction: column; gap:8px; width:100%; margin-top:8px }
+	.hamburger.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg) }
+	.hamburger.open .bar:nth-child(2) { opacity: 0 }
+	.hamburger.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg) }
+}

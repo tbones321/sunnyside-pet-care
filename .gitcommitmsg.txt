@@ -1,0 +1,5 @@
+﻿Use backend defaults as frontend fallback when API is unavailable
+
+- Embed current pricing and extra-pet defaults in Home and PricingSection so the UI shows values when backend restarts.
+
+Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>

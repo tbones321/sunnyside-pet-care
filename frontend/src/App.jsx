@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Routes, Route, Link, useNavigate } from 'react-router-dom'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -26,7 +26,9 @@ function AppContent() {
 
     const loadBackgroundImage = async () => {
       try {
-        const response = await fetch('/api/settings/background-image')
+        const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+        const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
+        const response = await fetch(`${apiBase}/api/settings/background-image`)
         if (!response.ok) {
           cleanupCurrentUrl()
           return
@@ -59,6 +61,8 @@ function AppContent() {
     navigate('/')
   }
 
+  const [menuOpen, setMenuOpen] = useState(false)
+
   return (
     <div className="app">
       <aside className="photo-column left">
@@ -67,7 +71,12 @@ function AppContent() {
       <div className="content">
         <header className="header">
           <h1>Sunny With A Chance Pet Care</h1>
-          <nav>
+          <button className={"hamburger" + (menuOpen ? " open" : "")} aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(!menuOpen)}>
+            <span className="bar" />
+            <span className="bar" />
+            <span className="bar" />
+          </button>
+          <nav className={menuOpen ? 'mobile-open' : ''} onClick={() => setMenuOpen(false)}>
             <Link to="/">Home</Link>
             <Link to="/request-walk">Request a Walk</Link>
             <Link to="/request-sitting">Request Sitting</Link>

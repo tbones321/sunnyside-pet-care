@@ -12,7 +12,8 @@ export function AuthProvider({ children }) {
 
   const login = useCallback(async (username, password) => {
     try {
-      const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+      const apiBaseRaw = import.meta.env.VITE_API_BASE_URL || ''
+      const apiBase = apiBaseRaw.replace(/\/+$|^\s+|\s+$/g, '')
       const response = await fetch(`${apiBase}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

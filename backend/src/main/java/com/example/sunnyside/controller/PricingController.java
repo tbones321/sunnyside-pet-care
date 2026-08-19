@@ -10,7 +10,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
-@RequestMapping(path = {"/api/pricing", "/api/pricing/"})
+@RequestMapping(path = {"/api/pricing-legacy"})
 public class PricingController {
 
     private final List<Pricing> pricingList = new CopyOnWriteArrayList<>();
