@@ -3,8 +3,7 @@ import RequestForm from '../components/RequestForm'
 
 export default function WalkRequest() {
   const [date, setDate] = useState('')
-  const [hour, setHour] = useState('09')
-  const [minute, setMinute] = useState('00')
+  const [time, setTime] = useState('09:00')
   const [ampm, setAmpm] = useState('AM')
   const [duration, setDuration] = useState('30')
   const [petCount, setPetCount] = useState(0)
@@ -50,7 +49,7 @@ export default function WalkRequest() {
   const totalPrice = basePrice + (additionalPets * extraPetFee)
 
   function handleSubmit(payload) {
-    if (!date || !hour) {
+    if (!date || !time) {
       alert('Please select a walk date and time.')
       return false
     }
@@ -58,8 +57,9 @@ export default function WalkRequest() {
       alert('Please select today or a future date.')
       return false
     }
-    // Convert 12-hour hour + AM/PM into 24-hour hour string
-    let h = parseInt(hour, 10)
+    // Convert the selected 12-hour time and AM/PM into a 24-hour timestamp.
+    const [selectedHour, minute] = time.split(':')
+    let h = parseInt(selectedHour, 10)
     if (ampm === 'PM') {
       if (h !== 12) h += 12
     } else {
@@ -99,20 +99,12 @@ export default function WalkRequest() {
         </label>
 
         <label style={{ display: 'flex', flexDirection: 'column' }}>
-          Hour
-          <select value={hour} onChange={e => setHour(e.target.value)}>
-            {hours.map(h => (
-              <option key={h} value={h}>{h}</option>
-            ))}
-          </select>
-        </label>
-
-        <label style={{ display: 'flex', flexDirection: 'column' }}>
-          Minute
-          <select value={minute} onChange={e => setMinute(e.target.value)}>
-            {minutes.map(m => (
-              <option key={m} value={m}>{m}</option>
-            ))}
+          Time
+          <select value={time} onChange={e => setTime(e.target.value)}>
+            {hours.flatMap(h => minutes.map(m => {
+              const value = `${h}:${m}`
+              return <option key={value} value={value}>{value}</option>
+            }))}
           </select>
         </label>
 
