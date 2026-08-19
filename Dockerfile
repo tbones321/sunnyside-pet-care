@@ -5,10 +5,9 @@
 FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /work
 
-# Copy backend sources
+# Copy backend build inputs
 COPY backend/pom.xml backend/pom.xml
 COPY backend/src backend/src
-COPY backend/target backend/target
 
 # Run maven package (skip tests to speed build)
 RUN mvn -f backend/pom.xml -DskipTests package
