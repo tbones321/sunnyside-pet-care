@@ -22,4 +22,4 @@ COPY --from=build /work/backend/target/sunnyside-0.0.1-SNAPSHOT.jar /app/app.jar
 EXPOSE 8080
 
 ENV JAVA_OPTS=""
-ENTRYPOINT ["sh","-c","java $JAVA_OPTS -Dserver.port=$PORT -jar /app/app.jar"]
+ENTRYPOINT ["sh","-c","java $JAVA_OPTS -Dserver.port=$PORT -Dspring.datasource.url='jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE' -Dspring.datasource.username=sa -Dspring.datasource.password= -jar /app/app.jar"]
