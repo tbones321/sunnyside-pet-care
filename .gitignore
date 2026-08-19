@@ -11,4 +11,6 @@ target/
 application.properties
 
 # OS
-.DS_Store
+.DS_Storebackend/target/
+frontend/node_modules/
+frontend/dist/
