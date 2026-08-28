@@ -7,6 +7,21 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        const query = window.location.search
+
+        if (query.startsWith('?/')) {
+          const route = query
+            .slice(1)
+            .split('&')
+            .map((part) => part.replace(/~and~/g, '&'))
+            .join('?')
+
+          window.history.replaceState(null, '', window.location.pathname.slice(0, -1) + route + window.location.hash)
+        }
+      })()
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
